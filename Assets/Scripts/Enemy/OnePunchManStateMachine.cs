@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace StatePattern.Enemy
 {
-    public class OnePunchManStateMachine
+    public class OnePunchManStateMachine : IStateMachine
     {
         private OnePunchManController Owner;
-        protected Dictionary<OnePunchManStates, IState> States = new Dictionary<OnePunchManStates, IState>();
+        protected Dictionary<State, IState> States = new Dictionary<State, IState>();
 
         private IState currentState;
 
@@ -21,9 +21,9 @@ namespace StatePattern.Enemy
 
         private void CreateStates()
         {
-            States.Add(OnePunchManStates.IDLE, new IdleState(this));
-            States.Add(OnePunchManStates.ROTATING, new RotatingState(this));
-            States.Add(OnePunchManStates.SHOOTING, new ShootingState(this));
+            States.Add(State.IDLE, new IdleState(this));
+            States.Add(State.ROTATING, new RotatingState(this));
+            States.Add(State.SHOOTING, new ShootingState(this));
         }
 
         public void Update()
@@ -38,7 +38,7 @@ namespace StatePattern.Enemy
             currentState?.OnEnterState();
         }
 
-        public void ChangeState(OnePunchManStates newState) => ChangeState(States[newState]);
+        public void ChangeState(State newState) => ChangeState(States[newState]);
 
         private void SetOwner()
         {

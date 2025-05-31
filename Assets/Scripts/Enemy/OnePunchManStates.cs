@@ -1,6 +1,8 @@
-public enum OnePunchManStates
+public enum State
 {
     IDLE,
     ROTATING,
-    SHOOTING
+    SHOOTING,
+    PATROLLING,
+    CHASING
 }
