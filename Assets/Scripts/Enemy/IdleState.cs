@@ -18,9 +18,13 @@ namespace StatePattern.Enemy
             if (timer <= 0)
             {
                 if (Owner.GetType() == typeof(OnePunchManController))
+                {
                     stateMachine.ChangeState(State.ROTATING);
+                }
                 else
+                {
                     stateMachine.ChangeState(State.PATROLLING);
+                }
             }
 
         }
