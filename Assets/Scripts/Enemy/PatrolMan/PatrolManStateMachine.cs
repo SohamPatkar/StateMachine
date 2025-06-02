@@ -20,7 +20,6 @@ namespace StatePattern.Enemy
         private void CreateStates()
         {
             States.Add(State.IDLE, new IdleState(this));
-            States.Add(State.ROTATING, new RotatingState(this));
             States.Add(State.PATROLLING, new PatrolState(this));
             States.Add(State.CHASING, new ChasingState(this));
             States.Add(State.SHOOTING, new ShootingState(this));

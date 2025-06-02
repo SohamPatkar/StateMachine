@@ -43,10 +43,7 @@ namespace StatePattern.Enemy
             Owner.Agent.SetDestination(destination);
         }
 
-        public void OnExitState()
-        {
-            Owner.Agent.isStopped = true;
-        }
+        public void OnExitState() { }
 
         public void UpdateState()
         {
