@@ -45,7 +45,7 @@ namespace StatePattern.Enemy
 
         public void OnExitState()
         {
-            stateMachine.ChangeState(State.IDLE);
+            Owner.Agent.isStopped = true;
         }
 
         public void UpdateState()

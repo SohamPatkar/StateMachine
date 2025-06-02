@@ -12,6 +12,8 @@ namespace StatePattern.Enemy
         public void UpdateState();
         public void OnExitState();
     }
+
+
 }
 
 

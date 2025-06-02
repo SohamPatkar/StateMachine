@@ -73,7 +73,10 @@ namespace StatePattern.Enemy
 
         public void SetState(EnemyState stateToSet) => currentState = stateToSet;
 
-        public virtual void PlayerEnteredRange(PlayerController targetToSet) => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
+        public virtual void PlayerEnteredRange(PlayerController targetToSet)
+        {
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
+        }
 
         public virtual void PlayerExitedRange() { }
 
