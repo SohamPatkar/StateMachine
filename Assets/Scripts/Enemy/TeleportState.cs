@@ -36,15 +36,9 @@ namespace StatePattern.Enemy
             return Owner.Data.SpawnPosition;
         }
 
-        public void OnExitState()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void OnExitState() { }
 
-        public void UpdateState()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void UpdateState() { }
     }
 }
 

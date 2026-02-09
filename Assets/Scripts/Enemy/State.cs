@@ -7,7 +7,8 @@ namespace StatePattern.Enemy
         SHOOTING,
         PATROLLING,
         CHASING,
-        TELEPORTING
+        TELEPORTING,
+        CLONING
     }
 }
 

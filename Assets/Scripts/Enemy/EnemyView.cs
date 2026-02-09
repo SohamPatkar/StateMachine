@@ -1,6 +1,7 @@
 ﻿using StatePattern.Main;
 using StatePattern.Player;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,10 +12,11 @@ namespace StatePattern.Enemy
         public EnemyController Controller { get; private set; }
         [SerializeField] public NavMeshAgent Agent;
         private SphereCollider rangeTriggerCollider;
+        [SerializeField] private SpriteRenderer enemyGraphic;
         [SerializeField] private SpriteRenderer detectableRange;
         [SerializeField] private ParticleSystem muzzleFlash;
+        [SerializeField] private List<EnemyColor> enemyColors;
         [SerializeField] private GameObject bloodStain;
-        [SerializeField] private SpriteRenderer enemyGraphic;
 
         private void Start()
         {
@@ -40,44 +42,18 @@ namespace StatePattern.Enemy
 
         public void PlayShootingEffect() => muzzleFlash.Play();
 
-        public void ToggleColor(bool value)
-        {
-            if (value)
-            {
-                enemyGraphic.color = Color.red;
-            }
-            else
-            {
-                enemyGraphic.color = Color.white;
-            }
-        }
-
         private void Update() => Controller?.UpdateEnemy();
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
-            {
                 Controller.PlayerEnteredRange(other.GetComponent<PlayerView>().Controller);
-            }
-            else
-            {
-                Debug.Log("Not found");
-            }
-
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
-            {
                 Controller.PlayerExitedRange();
-            }
-            else
-            {
-                Debug.Log("Not found");
-            }
-
         }
 
         public void Destroy() => StartCoroutine(EnemyDeathSequence());
@@ -96,5 +72,34 @@ namespace StatePattern.Enemy
             Destroy(gameObject);
         }
 
+        public void ChangeColor(EnemyColorType colorType)
+        {
+            enemyGraphic.color = enemyColors.Find(item => item.Type == colorType).Color;
+        }
+
+        public void SetDefaultColor(EnemyColorType colorType)
+        {
+            EnemyColor coloToSetAsDefault = new EnemyColor();
+            coloToSetAsDefault.Type = EnemyColorType.Default;
+            coloToSetAsDefault.Color = enemyColors.Find(item => item.Type == colorType).Color;
+
+            enemyColors.Remove(enemyColors.Find(item => item.Type == EnemyColorType.Default));
+            enemyColors.Add(coloToSetAsDefault);
+        }
     }
+
+    [System.Serializable]
+    public struct EnemyColor
+    {
+        public EnemyColorType Type;
+        public Color Color;
+    }
+
+    public enum EnemyColorType
+    {
+        Default,
+        Vulnerable,
+        Clone
+    }
+
 }
