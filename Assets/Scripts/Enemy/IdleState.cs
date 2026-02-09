@@ -4,11 +4,11 @@ namespace StatePattern.Enemy
 {
     public class IdleState : IState
     {
-        public OnePunchManController Owner { get; set; }
-        private OnePunchManStateMachine stateMachine;
+        public EnemyController Owner { get; set; }
+        private IStateMachine stateMachine;
         private float timer;
 
-        public IdleState(OnePunchManStateMachine stateMachine) => this.stateMachine = stateMachine;
+        public IdleState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 
         public void OnEnterState() => ResetTimer();
 
@@ -16,7 +16,13 @@ namespace StatePattern.Enemy
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
-                stateMachine.ChangeState(OnePunchManStates.ROTATING);
+            {
+                if (Owner.GetType() == typeof(OnePunchManController))
+                    stateMachine.ChangeState(State.ROTATING);
+                else
+                    stateMachine.ChangeState(State.PATROLLING);
+            }
+
         }
 
         public void OnExitState() => timer = 0;

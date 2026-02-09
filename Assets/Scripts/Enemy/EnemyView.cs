@@ -57,13 +57,27 @@ namespace StatePattern.Enemy
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
+            {
                 Controller.PlayerEnteredRange(other.GetComponent<PlayerView>().Controller);
+            }
+            else
+            {
+                Debug.Log("Not found");
+            }
+
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
+            {
                 Controller.PlayerExitedRange();
+            }
+            else
+            {
+                Debug.Log("Not found");
+            }
+
         }
 
         public void Destroy() => StartCoroutine(EnemyDeathSequence());

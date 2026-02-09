@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace StatePattern.Enemy
 {
-    public class OnePunchManStateMachine : IStateMachine
+    public class PatrolManStateMachine : IStateMachine
     {
-        private OnePunchManController Owner;
+        private PatrolManController Owner;
+        private IState currentState;
         protected Dictionary<State, IState> States = new Dictionary<State, IState>();
 
-        private IState currentState;
-
-        public OnePunchManStateMachine(OnePunchManController Owner)
+        public PatrolManStateMachine(PatrolManController Owner)
         {
             this.Owner = Owner;
             CreateStates();
@@ -22,23 +20,10 @@ namespace StatePattern.Enemy
         private void CreateStates()
         {
             States.Add(State.IDLE, new IdleState(this));
-            States.Add(State.ROTATING, new RotatingState(this));
+            States.Add(State.PATROLLING, new PatrolState(this));
+            States.Add(State.CHASING, new ChasingState(this));
             States.Add(State.SHOOTING, new ShootingState(this));
         }
-
-        public void Update()
-        {
-            currentState?.UpdateState();
-        }
-
-        protected void ChangeState(IState newState)
-        {
-            currentState?.OnExitState();
-            currentState = newState;
-            currentState?.OnEnterState();
-        }
-
-        public void ChangeState(State newState) => ChangeState(States[newState]);
 
         private void SetOwner()
         {
@@ -48,6 +33,17 @@ namespace StatePattern.Enemy
             }
         }
 
+        public void Update() => currentState?.UpdateState();
+
+        protected void ChangeState(IState newState)
+        {
+            currentState?.OnExitState();
+            currentState = newState;
+            currentState?.OnEnterState();
+        }
+
+        public void ChangeState(State newState) => ChangeState(States[newState]);
     }
 }
+
 
