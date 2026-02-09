@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GenericStateMachine<T> where T : EnemyController
 {
-    private T Owner;
-    private IState currentState;
+    protected T Owner;
+    protected IState currentState;
     protected Dictionary<State, IState> States = new Dictionary<State, IState>();
 
     public GenericStateMachine(T Owner)
@@ -14,7 +14,7 @@ public class GenericStateMachine<T> where T : EnemyController
         this.Owner = Owner;
     }
 
-    private void SetOwner()
+    protected void SetOwner()
     {
         foreach (IState state in States.Values)
         {
