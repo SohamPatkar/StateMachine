@@ -1,4 +1,3 @@
-
 namespace StatePattern.Enemy
 {
     public enum State
@@ -7,7 +6,8 @@ namespace StatePattern.Enemy
         ROTATING,
         SHOOTING,
         PATROLLING,
-        CHASING
+        CHASING,
+        TELEPORTING
     }
 }
 

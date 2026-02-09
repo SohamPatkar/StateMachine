@@ -47,6 +47,6 @@ namespace StatePattern.Main
             EnemyService = new EnemyService();
         }
 
-        private void Start() => UIService.ShowLevelSelectionUI(levelScriptableObjects.Count);
+        private void Start() => UIService?.ShowLevelSelectionUI(levelScriptableObjects.Count);
     }
 }
